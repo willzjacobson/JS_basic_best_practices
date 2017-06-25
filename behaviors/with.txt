@@ -1,0 +1,75 @@
+This is a bit painful..
+Ex:
+	var obj = {
+		a: {
+			b: {
+				c: 'hello'
+			}
+		}
+	};
+	console.log(obj.a.b.c);  // hello
+
+Instead, you can use the 'with' keyword.
+Ex:
+	var obj = {
+		a: {
+			b: {
+				c: 'hello'
+			}
+		}
+	};
+
+	with (obj.a.b) {
+		console.log(c);  // hello
+	}
+
+However, the above can get weird in a situation like the following. See how the global varable 'c' is clobbered out of existance inside the 'with' block.
+Ex:
+	var obj = {
+		a: {
+			b: {
+				c: 'hello'
+			}
+		}
+	};
+
+	var c = 'Global value of c';
+
+	with (obj.a.b) {
+		console.log(c);  // hello
+	}
+
+It is suggested not to use 'with', because it violates lexical scope. In strict mode, you get an error when you use 'with'. 
+Ex:
+	'use strict';
+	var obj = {
+		a: {
+			b: {
+				c: 'hello'
+			}
+		}
+	};
+
+	var c = 'Global value of c';
+
+	with (obj.a.b) {  // SyntaxError: 'with' in strict mode
+		console.log(c);  // hello
+	}
+
+However, you can acheive this same functionality with an immediately invoked function expression (IIFE).
+Ex:
+ 	'use strict';
+	var obj = {
+		a: {
+			b: {
+				c: 'hello'
+			}
+		}
+	};
+
+	var c = 'Global value of c';
+
+	(function(myNewVar) {
+		console.log(myNewVar);  // hello
+	})(obj.a.b.c);
+

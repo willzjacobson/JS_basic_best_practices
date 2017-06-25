@@ -1,0 +1,43 @@
+The 3 situations in which a virtual semicolon is added for you:
+
+1) When the following character is not allowed after the preceding, and a) is separated from the preceding by at least 1 line separator. 
+Ex: A semicolon is inserted after 12, since 'v' is not allowed after 12. 
+	var a = 12
+	var b = 13
+b) is a '}'.
+Ex: A semicolon is inserted after 'a' and before '}'.
+	if(a){console.log(a)}
+
+2) At the end of the stream (the file being executed).
+
+3) When a token is encountered after a restricted production (words like 'continue', 'break', 'return', 'throw'), and the token is separated from the previous token by at least one line terminator, a semicolon is automatically inserted before the token.
+Ex:
+function returnObject() {
+	if (true) {
+		return  // A semicolon will be automatically inserted here. Bad!
+		{
+			hi: 'hello'
+		}
+	}
+}
+
+Examples of how it could fuck you up (by not automatically inserting one):
+
+var a = 12  // semicolon inserted because 'v' is not allowed after 12
+var b = 13  // semicolon inserted because 'v' is not allowed after 13
+var c = b + a   // No semicolon inserted, because '[' IS allowed after a variable reference
+
+['menu', 'food', 'drink']
+.forEach(elem => console.log(elem))
+
+var a = 12
+var b = 13
+var c = b + a  // No semicolon inserted; will try to run a as a function. This will come into play usually where 1 JS file ends and another runs immediately after as part of the same process
+
+(function() {
+	console.log('HI');
+})()
+
+SOLUTION
+Use semicolos in conjunction with JSHint (or ESLint) to prevent potential issues.
+

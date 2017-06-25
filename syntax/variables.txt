@@ -1,0 +1,38 @@
+You'd expect this code to throw an error, but it does not:
+	console.log(variable);  // undefined
+	var variable;
+
+Something else funny:
+	console.log(variable);  // undefined
+	var variable = 10;
+	console.log(variable);  // 10
+
+This is due to 'hoisting'. From the EcmaScript Standards: "Variables are created when their containing lexical environment is instantiated, and are initialized to undefined when created". 
+
+When a file is executed, a lexical scope is created. The interpreter scans for variable declarations and initializes them to undefined. Then, the code gets run, with all values of variables starting as undefined until a line that assigns them a value is reached.
+
+
+Lets introduce a new rinkle:
+	var variable = 10;
+	function func() {
+		variable = 25;
+	}
+	console.log(variable);  // 10
+	func();
+	console.log(variable);  // 25  
+
+Fair enough. Now what happens here:
+	var variable = 10;
+	function func() {
+		variable = 25;
+		var variable;
+	}
+	func();
+	console.log(variable);  // 10
+That's because the assignment in func acts on the local variable 'variable' because there is one available, not the global one. Functions always check the local scope first. 
+
+SOLUTION
+Put all your variable declarations at the top of your scope, whether it be local (in a function, in which case put them at the top of the function body) or global (in which case put them at the top of the file). This doesn't mean you have to initialize everything at the top - but you should declare them there. 
+
+
+

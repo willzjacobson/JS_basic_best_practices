@@ -1,0 +1,15 @@
+"JavaScript is going to try to help. Don't let it." -Anthony Nocentino
+Use strict mode!
+
+EX.
+	'use strict'
+	var toPrint = 'Print me hard';
+	function print(out) {
+		stringToPrint = out;   // ReferenceError
+		console.log(stringToPrint);
+	}
+	console.log(stringToPrint);  // ReferenceError
+	print('Hello');  // Hello
+	console.log(stringToPrint);  // ReferenceError
+
+'use strict' scopes like functions. You can put it inside a function if you want, and it only affects things within that function scope.

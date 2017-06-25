@@ -1,0 +1,43 @@
+Create a read-only property.
+Ex:
+	var obj = {};
+
+	Object.defineProperty(obj, 'readOnly', {
+		enumerable: false,
+		configurable: false,
+		writeable: false,
+		value: 'This var is read only'
+	});
+
+	console.log(obj.readOnly);  // 'This var is read only'
+
+They cannot be overweritten, but we don't get an error because the interpreter just ignores it. 
+Ex:
+	var obj = {};
+
+	Object.defineProperty(obj, 'readOnly', {
+		enumerable: false,
+		configurable: false,
+		writeable: false,
+		value: 'This var is read only'
+	});
+
+	obj.readOnly = 'I wrote this';  // Has no effect :)
+	console.log(obj.readOnly);  // 'This var is read only'
+
+When you use 'use strict', you get an error. You want this.
+Ex:
+	'use strict';
+	var obj = {};
+
+	Object.defineProperty(obj, 'readOnly', {
+		enumerable: false,
+		configurable: false,
+		writeable: false,
+		value: 'This var is read only'
+	});
+
+	obj.readOnly = 'I wrote this';  // TypeError: Cannot assign to read only property
+	console.log(obj.readOnly);  // 'This var is read only'
+
+

@@ -1,0 +1,5 @@
+Not going to copy all the example code Anothony showed, but the message when dealing with nested callbacks is:
+
+1) Do not use anonymous functions. Declare your functions as named variables on the global scope.
+2) When handing potential errors, have your callbacks expect parameters like this: (err, results). That way, if the first parameter is defined, you know there was an error. Stick to that standard. 
+3) Generally after you call your callback (let's call the callback 'done'), you want the execution of a function to end. If so, 'return' your call to 'done'. 

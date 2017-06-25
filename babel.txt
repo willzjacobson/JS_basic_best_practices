@@ -1,0 +1,41 @@
+Here's a cool website that shows compatability of different browsers and node versions with features of es2015 and esnext:
+kangax.github.io/compat-table/esnext
+
+To use es2015 (es6) code in old versions of node and any browser:
+
+babel transpiles es2015 (es6) code down to es5 code. Here's how to use it.
+
+sudo npm install -g babel-cli
+touch .babelrc
+npm install --save-dev babel-preset-es2015
+
+.babelrc should look like this:
+{
+	"presets": [
+		"es2015"
+	],
+	"plugins": []
+}
+
+Run the compiler like this: babel app.js -o es6.js
+Then execute the file es6.js
+
+
+To use esnext code in node and any browser:
+
+sudo npm install -g babel-cli
+touch .babelrc
+npm install --save-dev babel-preset-stage-3
+
+.babelrc should look like this:
+{
+	"presets": [
+		"stage-3"
+	],
+	"plugins": []
+}
+
+To run the code in node:
+babel [source_filepath] -o [transpiled_filepath] && node [transpiled_filepath]
+
+

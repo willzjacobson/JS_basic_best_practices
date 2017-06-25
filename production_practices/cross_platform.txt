@@ -1,0 +1,3 @@
+HEADS-UP:
+
+Mac and Windows don't care about casing in filepaths, but Linux does. To avoid potential for confusion, use dash casing: 'my-file.js' rather than camel casing 'myFile.js'. 

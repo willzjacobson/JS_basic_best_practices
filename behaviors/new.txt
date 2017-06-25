@@ -1,0 +1,56 @@
+This shold make sense:
+Ex:
+	var Obj = function() {
+		// when called with 'new', explicitly create a new object 'this'.
+
+		this.hello = 'hello',
+
+		this.greet = function() {
+			console.log(this.hello);
+		}
+
+		// when called with 'new', automatically return 'this'.
+	};
+
+	var greeter = new Obj();
+	greeter.greet();  // hello
+
+Things can get weird when the method gets fired as an event. That's because inside 'setTimout', 'this' is the global object, because there is no '.' before the function call. The method is being called as a regular function. 
+Ex:
+	var Obj = function() {
+
+		this.hello = 'hello',
+
+		this.greet = function() {
+			console.log(this.hello);
+		}
+
+		this.delayGreeting = function() {
+			setTimeout(this.greet, 1000);
+		}
+	};
+
+	var greeter = new Obj();
+	greeter.delayGreeting();  // undefined
+
+To fix this, a good method is to create a new reference to the 'this' object, and use that.
+Ex:
+	var Obj = function() {
+		var _this = this;
+
+		_this.hello = 'hello',
+
+		_this.greet = function() {
+			console.log(_this.hello);
+		}
+
+		_this.delayGreeting = function() {
+			setTimeout(_this.greet, 1000);
+		}
+	};
+
+	var greeter = new Obj();
+	greeter.delayGreeting();  // hello
+
+
+

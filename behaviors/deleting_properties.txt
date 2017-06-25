@@ -1,0 +1,23 @@
+The 'delete' keyword can only be used on properties of objects. Outside of strict mode, if you try to use the 'delete' keyword on a regular variable, the interpreter will just ignore it. This can lead to confusion.
+Ex:
+	var obj = { a: 100, b: 200 };
+	var myVar = 10;
+
+	delete obj.a;  // All good
+	delete myVar;  // Ignored
+	delete obj;  // ignored
+
+	console.log(obj);  // { a: 100 };
+	console.log(myVar);  // 10
+
+In strict mode, you get an error when you do this. That is desirable, so you can check yourself.
+Ex.
+	var obj = { a: 100, b: 200 };
+	var myVar = 10;
+
+	delete obj.a;  // All good
+	delete myVar;  // SyntaxError: Deleting local variable in strict mode
+	delete obj;  // SyntaxError: Deleting local variable in strict mode
+
+	console.log(obj);  // { a: 100 };
+	console.log(myVar);  // 10

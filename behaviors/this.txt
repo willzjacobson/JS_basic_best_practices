@@ -1,0 +1,81 @@
+What 'this' refers to depends on where a function is executed, not where it is created.
+
+With object methods, 'this' refers to the leading object being referenced.
+Ex:
+	var obj = {
+		val: 'Yo',
+		printVal: function() {
+		  console.log(this.val);
+		}
+	};
+	obj.printVal();  // 'Yo'
+
+The method 'printVal' on obj can be transfered to another object, so 'this' now refers to the other object.
+Ex.
+	var obj = {
+		val: 'Yo',
+		printVal: function() {
+		  console.log(this.val);
+		}
+	};
+	var obj2 = {
+		val: 'heyy'
+	};
+	obj2.printVal = obj.printVal;
+	obj2.printVal();  // 'heyy'
+
+However, trying to turn this method into a regular function doesn't work that well. 'this' becomes the global scope ('window' in a browser or 'process' in Node). 
+Ex.
+	var obj = {
+		val: 'Yo',
+		printVal: function() {
+			console.log(this);
+			console.log(this.val);
+		}
+	};
+	var print = obj.printVal; 
+
+	obj.printVal();  // 
+		// 'Yo'  
+		// { val: 'Yo', printVal: [Function: printVal] }
+
+	print();
+		// HUGE OBJECT (the global scope: window in a browser or process in Node)
+		// undefined
+
+In strict mode, 'this' becomes undefined in that context. 
+Ex:
+	'use strict';
+	var obj = {
+		val: 'Yo',
+		printVal: function() {
+			console.log(this);
+			console.log(this.val);
+		}
+	};
+	var print = obj.printVal; 
+
+	obj.printVal();  // 
+		// 'Yo'  
+		// { val: 'Yo', printVal: [Function: printVal] }
+
+	print();
+		// undefined
+		// TypeError: cannot read property 'val' of undefined
+
+'.bind' explicitly delares what 'this' shall reference. 
+Ex:
+	'use strict';
+	var obj = {
+		val: 'Yo',
+		printVal: function() {
+			console.log(this.val);
+		}
+	};
+	var obj2 = {
+		val: 'heyy'
+	};
+	var print = obj.printVal.bind(obj2); 
+
+	print();  // heyy
+

@@ -1,0 +1,11 @@
+When you have a left hand reference (LHS) without the 'var' keyword to a variable inside a function scope, the interpreter asks the global scope for that variable within that function scope. If the function scope doesn't have that variable, the interpreter then asks the global scope. If the global scope doesn't have one, it will assume that it's supposed to, but there was a mistake, and so it creates one. Variables get accidentally leaked to the global scope in this way.
+
+EX.
+	var toPrint = 'Print me hard';
+	function print(out) {
+		stringToPrint = out;   // Forgot 'var'!
+		console.log(stringToPrint);
+	}
+	console.log(stringToPrint);  // ReferenceError
+	print('Hello');  // Hello
+	console.log(stringToPrint);  // Hello  (Do not want this)

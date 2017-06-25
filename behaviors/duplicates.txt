@@ -1,0 +1,25 @@
+Outside of strict mode, this happens.
+Ex:
+	function doStuff(a, b, a) {
+		console.log(a);
+	}
+
+	doStuff(3);  // undefined
+
+This happens too.
+Ex:
+	function doStuff(a, b, a) {
+		console.log(a);
+	}
+
+	doStuff(3, 4, 5);  // 5
+
+
+In strict mode, you're not allowed to have duplicate parameter names.
+Ex.
+	'use strict';
+	function doStuff(a, b, a) {
+		console.log(a);
+	}
+
+	doStuff(3);  // SyntaxError: Argument name clash in strict mode

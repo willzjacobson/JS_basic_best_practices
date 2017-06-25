@@ -1,0 +1,8 @@
+# Node foreman is a package that helps you manage node processes
+
+# Install foreman globally:
+sudo npm install -g foreman
+# Run the 'start' script in package.json using foreman
+nf start
+
+# Stick a file '.env' in the root directory of the app, and fill in JSON for the environment vaiables you want. nf will insert them into the process. 

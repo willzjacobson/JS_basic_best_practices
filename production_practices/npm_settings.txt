@@ -1,0 +1,11 @@
+- When creating a new node application, a nice shortcut is:
+npm init --yes
+
+- The 'engines' keyword.
+See the package.json in the JS_best_practices repo, which we are now in. I added a top level property 'engines' with a value of an object, in which is represented the versions of node that this application is allowed to run on. If I try running the app or installing a new package using any node version that does not fit the constraint, an error will be thrown. It is good practice to be explicit about what versions of node your app will work for. NOTE: I could not actually get this to work.
+
+- To automatically add ' --save' to the end of all your npm package installs, run:
+npm config set save=true
+
+- You don't always know that your app will work with the next minor versions of all your packages. Thus, you might not want the '^' in front of the versions. To have package.json leave it out, run:
+npm config set save-exact=true

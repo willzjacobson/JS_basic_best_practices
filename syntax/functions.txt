@@ -1,0 +1,41 @@
+Functions are first class objects; they are a type unto themselves, and can be passed around as variables. Thus, they act a little differently. 
+
+There are 2 ways to create a function.. 
+Declaration:
+	function func() {}
+and Expression:
+	var func = function() {}
+
+Function declarations get their values assigned before the file is executed. This is how most languages work. However, function expressions are hoisted in the same fashion as other variables. 
+
+	expression();  // TypeError: expression is not a function
+	func();  // Hi from func
+	var expression = function() {
+		console.log('Hi from expression');
+	}
+	function func() {
+		console.log('Hi from func');
+	}
+	expression();  // Hi from expression
+	func();  // Hi from func
+
+SOLUTION
+Every time you create a new scope (file), order your code like this to make hoisting work with you rather than against you:
+
+// variables first
+var x = 10;
+// functions next
+function print(input) {
+	// variables first
+	var x = 0;
+	// functions next
+	function log() {
+		console.log(arguments);
+	}
+	// run code
+	log(input, );
+}
+// run code
+print(x);
+
+

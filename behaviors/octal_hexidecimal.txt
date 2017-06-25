@@ -1,0 +1,33 @@
+Check out this weird number shit.
+Ex.
+var x = 120;
+var y = 012;
+var z = 002;
+var w = 0x12;
+
+console.log(x); //  120
+console.log(y); //  8
+console.log(z); //  18
+console.log(w); //  2
+
+This happens because when you put a 0 before a number, JavaScript thinks you mean you want an octal number (12 in octal is 10). When you put 0x before a number, JavaScript thinks you mean you want a hexidecimal number (12 in hexidecimal is 18).
+
+You don't necessarily want this. Use strict mode to get the following result.
+Ex:
+	'use strict'
+	var x = 120;
+	var y = 012;  // SyntaxError: Invalid number
+	var z = 002;  // SyntaxError: Invalid number
+	var w = 0x12;  // Still allowed
+
+	console.log(x); //  120
+	console.log(w); //  2
+
+You can still use octal numbers in strict mode if you want, but you must do explicitly.
+Ex.
+	'use strict';
+	var x = parseInt(12, 8);
+	console.log(x);  // 10
+
+
+
